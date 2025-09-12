@@ -1,1 +1,670 @@
-
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPLUqnpt333R6375PCAoqw8",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Mouneshgowdan/dsa_placementtrining/blob/main/Day3.2_Quick_Sort.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Quick Sort Algorithm Examples and Problems\n",
+        "\n",
+        "# 1. What is Quick Sort Algorithm ?\n",
+        "\n",
+        "Quick Sort is a divide and conquer algorithm:\n",
+        "\n",
+        "1. Pick a pivot element.\n",
+        "2. Rearrange the list so that:\n",
+        "\n",
+        ". Elements smaller than pivot go to the left.\n",
+        "\n",
+        ". Elements greater than pivot go to the right.\n",
+        "\n",
+        "3. Recursively apply the same process to the left and right sublists.\n",
+        "\n",
+        "4. Combine → sorted array.\n",
+        "\n",
+        "# Time Complexity:\n",
+        "\n",
+        ". Best & Average → O(n log n)\n",
+        "\n",
+        ". Worst → O(n²)\n",
+        "\n",
+        ". Space Complexity: O(log n) (recursion stack)"
+      ],
+      "metadata": {
+        "id": "uZxSFrj1zmA9"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort in Python (In-Place)\n",
+        "\n",
+        "def partition(arr, low, high):\n",
+        "    pivot = arr[high]  # choose last element as pivot\n",
+        "    i = low - 1        # index of smaller element\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if arr[j] <= pivot:   # if current element <= pivot\n",
+        "            i += 1\n",
+        "            arr[i], arr[j] = arr[j], arr[i]  # swap\n",
+        "\n",
+        "    arr[i + 1], arr[high] = arr[high], arr[i + 1]  # place pivot correctly\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(arr, low, high):\n",
+        "    if low < high:\n",
+        "        pi = partition(arr, low, high)   # partition index\n",
+        "        quick_sort(arr, low, pi - 1)     # sort left subarray\n",
+        "        quick_sort(arr, pi + 1, high)    # sort right subarray\n",
+        "\n",
+        "\n",
+        "# Example usage\n",
+        "arr = [10, 7, 8, 9, 1, 5]\n",
+        "print(\"Original array:\", arr)\n",
+        "quick_sort(arr, 0, len(arr) - 1)\n",
+        "print(\"Sorted array:\", arr)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ur0Kak-G1dxe",
+        "outputId": "a03dd81b-928e-432e-a955-0d8ce6a48ea9"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original array: [10, 7, 8, 9, 1, 5]\n",
+            "Sorted array: [1, 5, 7, 8, 9, 10]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 1. E-commerce Websites (Amazon, Flipkart, etc.)\n",
+        "\n",
+        "Sorting millions of products by price (low → high), ratings, or discounts.\n",
+        "\n",
+        "Quick Sort is preferred because it’s very fast for large datasets."
+      ],
+      "metadata": {
+        "id": "EeajLjIP2AkS"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for E-commerce Product Prices\n",
+        "\n",
+        "def partition(arr, low, high):\n",
+        "    pivot = arr[high]  # choose last element as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if arr[j] <= pivot:\n",
+        "            i += 1\n",
+        "            arr[i], arr[j] = arr[j], arr[i]  # swap\n",
+        "\n",
+        "    arr[i + 1], arr[high] = arr[high], arr[i + 1]  # place pivot correctly\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(arr, low, high):\n",
+        "    if low < high:\n",
+        "        pi = partition(arr, low, high)\n",
+        "        quick_sort(arr, low, pi - 1)\n",
+        "        quick_sort(arr, pi + 1, high)\n",
+        "\n",
+        "\n",
+        "# Example: Product prices (unsorted)\n",
+        "product_prices = [2999, 499, 1599, 799, 9999, 2500, 1200]\n",
+        "\n",
+        "print(\"Original Product Prices:\", product_prices)\n",
+        "quick_sort(product_prices, 0, len(product_prices) - 1)\n",
+        "print(\"Sorted by Price (Low → High):\", product_prices)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pyR9U92c2Y3c",
+        "outputId": "5d4f4495-c2fd-418e-bc0e-a3893f3bec9a"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Product Prices: [2999, 499, 1599, 799, 9999, 2500, 1200]\n",
+            "Sorted by Price (Low → High): [499, 799, 1200, 1599, 2500, 2999, 9999]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 2. Movie or Music Streaming Platforms (Netflix, Spotify, YouTube)\n",
+        "\n",
+        ". Sorting movies or songs by popularity, release date, or duration.\n",
+        "\n",
+        ". Helps in ranking and recommendations."
+      ],
+      "metadata": {
+        "id": "VGDcXjxp2hUV"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for Movies (by Popularity)\n",
+        "\n",
+        "def partition(movies, low, high, key):\n",
+        "    pivot = movies[high][key]  # choose last element's key as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if movies[j][key] >= pivot:  # >= for descending order (most popular first)\n",
+        "            i += 1\n",
+        "            movies[i], movies[j] = movies[j], movies[i]\n",
+        "\n",
+        "    movies[i + 1], movies[high] = movies[high], movies[i + 1]\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(movies, low, high, key):\n",
+        "    if low < high:\n",
+        "        pi = partition(movies, low, high, key)\n",
+        "        quick_sort(movies, low, pi - 1, key)\n",
+        "        quick_sort(movies, pi + 1, high, key)\n",
+        "\n",
+        "\n",
+        "# Example dataset: Movies with [Title, Popularity Score]\n",
+        "movies = [\n",
+        "    {\"title\": \"Inception\", \"popularity\": 95, \"release_year\": 2010, \"duration\": 148},\n",
+        "    {\"title\": \"Interstellar\", \"popularity\": 90, \"release_year\": 2014, \"duration\": 169},\n",
+        "    {\"title\": \"Tenet\", \"popularity\": 75, \"release_year\": 2020, \"duration\": 150},\n",
+        "    {\"title\": \"The Dark Knight\", \"popularity\": 98, \"release_year\": 2008, \"duration\": 152},\n",
+        "    {\"title\": \"Oppenheimer\", \"popularity\": 85, \"release_year\": 2023, \"duration\": 180}\n",
+        "]\n",
+        "\n",
+        "print(\"Original List:\")\n",
+        "for m in movies:\n",
+        "    print(m)\n",
+        "\n",
+        "# Sort movies by popularity\n",
+        "quick_sort(movies, 0, len(movies) - 1, \"popularity\")\n",
+        "\n",
+        "print(\"\\nMovies Sorted by Popularity (High → Low):\")\n",
+        "for m in movies:\n",
+        "    print(m)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3qAi2p3P21BF",
+        "outputId": "c21de016-49ac-4713-b330-285ebd37c55e"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original List:\n",
+            "{'title': 'Inception', 'popularity': 95, 'release_year': 2010, 'duration': 148}\n",
+            "{'title': 'Interstellar', 'popularity': 90, 'release_year': 2014, 'duration': 169}\n",
+            "{'title': 'Tenet', 'popularity': 75, 'release_year': 2020, 'duration': 150}\n",
+            "{'title': 'The Dark Knight', 'popularity': 98, 'release_year': 2008, 'duration': 152}\n",
+            "{'title': 'Oppenheimer', 'popularity': 85, 'release_year': 2023, 'duration': 180}\n",
+            "\n",
+            "Movies Sorted by Popularity (High → Low):\n",
+            "{'title': 'The Dark Knight', 'popularity': 98, 'release_year': 2008, 'duration': 152}\n",
+            "{'title': 'Inception', 'popularity': 95, 'release_year': 2010, 'duration': 148}\n",
+            "{'title': 'Interstellar', 'popularity': 90, 'release_year': 2014, 'duration': 169}\n",
+            "{'title': 'Oppenheimer', 'popularity': 85, 'release_year': 2023, 'duration': 180}\n",
+            "{'title': 'Tenet', 'popularity': 75, 'release_year': 2020, 'duration': 150}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 3. Ticket Booking Systems (Airlines, Railways, Events)\n",
+        "\n",
+        ". Sorting available seats by seat number or ticket price.\n",
+        "\n",
+        ". Ensures customers quickly get the cheapest or nearest available option."
+      ],
+      "metadata": {
+        "id": "fQWjn0Oo3Mzd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for Ticket Booking (by Price or Seat Number)\n",
+        "\n",
+        "def partition(tickets, low, high, key):\n",
+        "    pivot = tickets[high][key]  # choose last element's key as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if tickets[j][key] <= pivot:  # ascending order (cheapest/lowest seat first)\n",
+        "            i += 1\n",
+        "            tickets[i], tickets[j] = tickets[j], tickets[i]\n",
+        "\n",
+        "    tickets[i + 1], tickets[high] = tickets[high], tickets[i + 1]\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(tickets, low, high, key):\n",
+        "    if low < high:\n",
+        "        pi = partition(tickets, low, high, key)\n",
+        "        quick_sort(tickets, low, pi - 1, key)\n",
+        "        quick_sort(tickets, pi + 1, high, key)\n",
+        "\n",
+        "\n",
+        "# Example dataset: Tickets with seat number & price\n",
+        "tickets = [\n",
+        "    {\"seat_no\": \"12A\", \"price\": 4500},\n",
+        "    {\"seat_no\": \"7B\", \"price\": 3200},\n",
+        "    {\"seat_no\": \"20C\", \"price\": 5000},\n",
+        "    {\"seat_no\": \"15D\", \"price\": 4000},\n",
+        "    {\"seat_no\": \"3E\", \"price\": 2800},\n",
+        "]\n",
+        "\n",
+        "print(\"Original Tickets:\")\n",
+        "for t in tickets:\n",
+        "    print(t)\n",
+        "\n",
+        "# Sort tickets by price\n",
+        "quick_sort(tickets, 0, len(tickets) - 1, \"price\")\n",
+        "\n",
+        "print(\"\\nTickets Sorted by Price (Low → High):\")\n",
+        "for t in tickets:\n",
+        "    print(t)\n",
+        "\n",
+        "# Sort tickets by seat number (optional: alphabetical order)\n",
+        "quick_sort(tickets, 0, len(tickets) - 1, \"seat_no\")\n",
+        "\n",
+        "print(\"\\nTickets Sorted by Seat Number:\")\n",
+        "for t in tickets:\n",
+        "    print(t)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "X4FokPwj3gKx",
+        "outputId": "9e210ca2-73ae-4bb2-c987-2af35f08977d"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Tickets:\n",
+            "{'seat_no': '12A', 'price': 4500}\n",
+            "{'seat_no': '7B', 'price': 3200}\n",
+            "{'seat_no': '20C', 'price': 5000}\n",
+            "{'seat_no': '15D', 'price': 4000}\n",
+            "{'seat_no': '3E', 'price': 2800}\n",
+            "\n",
+            "Tickets Sorted by Price (Low → High):\n",
+            "{'seat_no': '3E', 'price': 2800}\n",
+            "{'seat_no': '7B', 'price': 3200}\n",
+            "{'seat_no': '15D', 'price': 4000}\n",
+            "{'seat_no': '12A', 'price': 4500}\n",
+            "{'seat_no': '20C', 'price': 5000}\n",
+            "\n",
+            "Tickets Sorted by Seat Number:\n",
+            "{'seat_no': '12A', 'price': 4500}\n",
+            "{'seat_no': '15D', 'price': 4000}\n",
+            "{'seat_no': '20C', 'price': 5000}\n",
+            "{'seat_no': '3E', 'price': 2800}\n",
+            "{'seat_no': '7B', 'price': 3200}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 4. Gaming (Leaderboards)\n",
+        ". Sorting player scores in ascending/descending order.\n",
+        "\n",
+        ". Quick Sort helps to efficiently update leaderboards in real time."
+      ],
+      "metadata": {
+        "id": "vombHdkX3s-j"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for Gaming Leaderboards\n",
+        "\n",
+        "def partition(players, low, high, key, descending=True):\n",
+        "    pivot = players[high][key]   # choose last element's key as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if descending:  # High score first\n",
+        "            if players[j][key] >= pivot:\n",
+        "                i += 1\n",
+        "                players[i], players[j] = players[j], players[i]\n",
+        "        else:           # Low score first\n",
+        "            if players[j][key] <= pivot:\n",
+        "                i += 1\n",
+        "                players[i], players[j] = players[j], players[i]\n",
+        "\n",
+        "    players[i + 1], players[high] = players[high], players[i + 1]\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(players, low, high, key, descending=True):\n",
+        "    if low < high:\n",
+        "        pi = partition(players, low, high, key, descending)\n",
+        "        quick_sort(players, low, pi - 1, key, descending)\n",
+        "        quick_sort(players, pi + 1, high, key, descending)\n",
+        "\n",
+        "\n",
+        "# Example: Player scores\n",
+        "leaderboard = [\n",
+        "    {\"name\": \"Alice\", \"score\": 2500},\n",
+        "    {\"name\": \"Bob\", \"score\": 1800},\n",
+        "    {\"name\": \"Charlie\", \"score\": 3200},\n",
+        "    {\"name\": \"Diana\", \"score\": 2950},\n",
+        "    {\"name\": \"Eve\", \"score\": 1500}\n",
+        "]\n",
+        "\n",
+        "print(\"Original Leaderboard:\")\n",
+        "for player in leaderboard:\n",
+        "    print(player)\n",
+        "\n",
+        "# Sort leaderboard by score (descending - highest first)\n",
+        "quick_sort(leaderboard, 0, len(leaderboard) - 1, \"score\", descending=True)\n",
+        "\n",
+        "print(\"\\nLeaderboard Sorted by Score (High → Low):\")\n",
+        "for player in leaderboard:\n",
+        "    print(player)\n",
+        "\n",
+        "# Sort leaderboard by score (ascending - lowest first)\n",
+        "quick_sort(leaderboard, 0, len(leaderboard) - 1, \"score\", descending=False)\n",
+        "\n",
+        "print(\"\\nLeaderboard Sorted by Score (Low → High):\")\n",
+        "for player in leaderboard:\n",
+        "    print(player)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "s89Pm6yn4Cy6",
+        "outputId": "c4bd8500-5d49-4253-97b1-7d068e6b592f"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Leaderboard:\n",
+            "{'name': 'Alice', 'score': 2500}\n",
+            "{'name': 'Bob', 'score': 1800}\n",
+            "{'name': 'Charlie', 'score': 3200}\n",
+            "{'name': 'Diana', 'score': 2950}\n",
+            "{'name': 'Eve', 'score': 1500}\n",
+            "\n",
+            "Leaderboard Sorted by Score (High → Low):\n",
+            "{'name': 'Charlie', 'score': 3200}\n",
+            "{'name': 'Diana', 'score': 2950}\n",
+            "{'name': 'Alice', 'score': 2500}\n",
+            "{'name': 'Bob', 'score': 1800}\n",
+            "{'name': 'Eve', 'score': 1500}\n",
+            "\n",
+            "Leaderboard Sorted by Score (Low → High):\n",
+            "{'name': 'Eve', 'score': 1500}\n",
+            "{'name': 'Bob', 'score': 1800}\n",
+            "{'name': 'Alice', 'score': 2500}\n",
+            "{'name': 'Diana', 'score': 2950}\n",
+            "{'name': 'Charlie', 'score': 3200}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 5. Data Analytics\n",
+        "\n",
+        ". Large datasets often need sorting (e.g., sales records, stock prices).\n",
+        "\n",
+        ". Quick Sort is fast and widely used for arranging data before analysis."
+      ],
+      "metadata": {
+        "id": "3DyxTfOI4Gab"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for Data Analytics (Sales Records)\n",
+        "\n",
+        "def partition(records, low, high, key):\n",
+        "    pivot = records[high][key]   # choose last element's key as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if records[j][key] <= pivot:  # ascending order\n",
+        "            i += 1\n",
+        "            records[i], records[j] = records[j], records[i]\n",
+        "\n",
+        "    records[i + 1], records[high] = records[high], records[i + 1]\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(records, low, high, key):\n",
+        "    if low < high:\n",
+        "        pi = partition(records, low, high, key)\n",
+        "        quick_sort(records, low, pi - 1, key)\n",
+        "        quick_sort(records, pi + 1, high, key)\n",
+        "\n",
+        "\n",
+        "# Example dataset: Sales Records\n",
+        "sales_data = [\n",
+        "    {\"product\": \"Laptop\", \"sales\": 250},\n",
+        "    {\"product\": \"Smartphone\", \"sales\": 800},\n",
+        "    {\"product\": \"Tablet\", \"sales\": 300},\n",
+        "    {\"product\": \"Headphones\", \"sales\": 150},\n",
+        "    {\"product\": \"Smartwatch\", \"sales\": 500}\n",
+        "]\n",
+        "\n",
+        "print(\"Original Sales Data:\")\n",
+        "for record in sales_data:\n",
+        "    print(record)\n",
+        "\n",
+        "# Sort sales records by sales (ascending)\n",
+        "quick_sort(sales_data, 0, len(sales_data) - 1, \"sales\")\n",
+        "\n",
+        "print(\"\\nSales Records Sorted by Sales (Low → High):\")\n",
+        "for record in sales_data:\n",
+        "    print(record)\n",
+        "\n",
+        "# Sort sales records by sales (descending)\n",
+        "quick_sort(sales_data, 0, len(sales_data) - 1, \"sales\")\n",
+        "sales_data.reverse()  # simple trick for descending order\n",
+        "\n",
+        "print(\"\\nSales Records Sorted by Sales (High → Low):\")\n",
+        "for record in sales_data:\n",
+        "    print(record)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8W_VzFAR4TY5",
+        "outputId": "d6dcaf33-aea5-43eb-9072-b53e25a62657"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Sales Data:\n",
+            "{'product': 'Laptop', 'sales': 250}\n",
+            "{'product': 'Smartphone', 'sales': 800}\n",
+            "{'product': 'Tablet', 'sales': 300}\n",
+            "{'product': 'Headphones', 'sales': 150}\n",
+            "{'product': 'Smartwatch', 'sales': 500}\n",
+            "\n",
+            "Sales Records Sorted by Sales (Low → High):\n",
+            "{'product': 'Headphones', 'sales': 150}\n",
+            "{'product': 'Laptop', 'sales': 250}\n",
+            "{'product': 'Tablet', 'sales': 300}\n",
+            "{'product': 'Smartwatch', 'sales': 500}\n",
+            "{'product': 'Smartphone', 'sales': 800}\n",
+            "\n",
+            "Sales Records Sorted by Sales (High → Low):\n",
+            "{'product': 'Smartphone', 'sales': 800}\n",
+            "{'product': 'Smartwatch', 'sales': 500}\n",
+            "{'product': 'Tablet', 'sales': 300}\n",
+            "{'product': 'Laptop', 'sales': 250}\n",
+            "{'product': 'Headphones', 'sales': 150}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#6. Operating Systems (Process Scheduling)\n",
+        "\n",
+        ". Sorting processes by priority or execution time in scheduling.\n",
+        "\n",
+        ". Quick Sort’s speed helps in efficient resource allocation."
+      ],
+      "metadata": {
+        "id": "Vf6vWNyq4b8z"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Quick Sort for Process Scheduling (by Priority or Execution Time)\n",
+        "\n",
+        "def partition(processes, low, high, key):\n",
+        "    pivot = processes[high][key]   # choose last element's key as pivot\n",
+        "    i = low - 1\n",
+        "\n",
+        "    for j in range(low, high):\n",
+        "        if processes[j][key] <= pivot:  # ascending order\n",
+        "            i += 1\n",
+        "            processes[i], processes[j] = processes[j], processes[i]\n",
+        "\n",
+        "    processes[i + 1], processes[high] = processes[high], processes[i + 1]\n",
+        "    return i + 1\n",
+        "\n",
+        "def quick_sort(processes, low, high, key):\n",
+        "    if low < high:\n",
+        "        pi = partition(processes, low, high, key)\n",
+        "        quick_sort(processes, low, pi - 1, key)\n",
+        "        quick_sort(processes, pi + 1, high, key)\n",
+        "\n",
+        "\n",
+        "# Example dataset: Processes with ID, Priority, Execution Time\n",
+        "processes = [\n",
+        "    {\"pid\": 1, \"priority\": 3, \"execution_time\": 25},\n",
+        "    {\"pid\": 2, \"priority\": 1, \"execution_time\": 15},\n",
+        "    {\"pid\": 3, \"priority\": 4, \"execution_time\": 10},\n",
+        "    {\"pid\": 4, \"priority\": 2, \"execution_time\": 30},\n",
+        "    {\"pid\": 5, \"priority\": 5, \"execution_time\": 20},\n",
+        "]\n",
+        "\n",
+        "print(\"Original Processes:\")\n",
+        "for p in processes:\n",
+        "    print(p)\n",
+        "\n",
+        "# Sort processes by priority (ascending → lower number = higher priority)\n",
+        "quick_sort(processes, 0, len(processes) - 1, \"priority\")\n",
+        "\n",
+        "print(\"\\nProcesses Sorted by Priority (High Priority First):\")\n",
+        "for p in processes:\n",
+        "    print(p)\n",
+        "\n",
+        "# Sort processes by execution time (ascending → shortest job first)\n",
+        "quick_sort(processes, 0, len(processes) - 1, \"execution_time\")\n",
+        "\n",
+        "print(\"\\nProcesses Sorted by Execution Time (Shortest Job First):\")\n",
+        "for p in processes:\n",
+        "    print(p)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "hshBcKLj4pQX",
+        "outputId": "19e4dcde-4e5c-4903-f1ad-f0b038305035"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Processes:\n",
+            "{'pid': 1, 'priority': 3, 'execution_time': 25}\n",
+            "{'pid': 2, 'priority': 1, 'execution_time': 15}\n",
+            "{'pid': 3, 'priority': 4, 'execution_time': 10}\n",
+            "{'pid': 4, 'priority': 2, 'execution_time': 30}\n",
+            "{'pid': 5, 'priority': 5, 'execution_time': 20}\n",
+            "\n",
+            "Processes Sorted by Priority (High Priority First):\n",
+            "{'pid': 2, 'priority': 1, 'execution_time': 15}\n",
+            "{'pid': 4, 'priority': 2, 'execution_time': 30}\n",
+            "{'pid': 1, 'priority': 3, 'execution_time': 25}\n",
+            "{'pid': 3, 'priority': 4, 'execution_time': 10}\n",
+            "{'pid': 5, 'priority': 5, 'execution_time': 20}\n",
+            "\n",
+            "Processes Sorted by Execution Time (Shortest Job First):\n",
+            "{'pid': 3, 'priority': 4, 'execution_time': 10}\n",
+            "{'pid': 2, 'priority': 1, 'execution_time': 15}\n",
+            "{'pid': 5, 'priority': 5, 'execution_time': 20}\n",
+            "{'pid': 1, 'priority': 3, 'execution_time': 25}\n",
+            "{'pid': 4, 'priority': 2, 'execution_time': 30}\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
