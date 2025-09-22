@@ -44,6 +44,9 @@ The goal of this repo is to help students:
 
 ### Day7:
 - Scenario based, Interview oriented programs on 
-1. Graphs 
-2. Advance data structures 
+1. Graphs
+
+### Day8:
+- Scenario based, Interview oriented programs on 
+1. Advance data structures 
 
